@@ -1,20 +1,31 @@
+'use client';
+import './globals.css';
 import Link from 'next/link';
+import React from 'react';
+import Header from './components/header';
+import { useRouter } from 'next/navigation';
 
-function Home() {
+function Home(): JSX.Element {
+  const router = useRouter();
   return (
-    <div className="flex flex-col h-screen justify-center items-center">
-      <div className="space-y-4">
-        <Link href="/motsdujour" className="custom-button">
-          <h2>Mots du jour</h2>
-        </Link>
-        <Link href="/plusdemots" className="custom-button">
-          <h2>Plus de mots</h2>
-        </Link>
-        <Link href="/exercice" className="custom-button">
-          <h2>Exercice</h2>
-        </Link>
+    <Header>
+      <div className="flex flex-col space-y-4 items-center h-100 justify-evenly ">
+        <button
+          className="btn btn-primary btn-lg w-50 min-w-[200px] max-w-[900px] shadow-md shadow-2xl"
+          onClick={() => {
+            router.push('/mots-du-jour');
+          }}
+        >
+          <h1>Mots du jour</h1>
+        </button>
+        <button className="btn btn-primary btn-lg w-50 min-w-[200px] max-w-[900px] shadow-md shadow-2xl">
+          <h1>Plus de mots</h1>
+        </button>
+        <button className="btn btn-primary btn-lg w-50 min-w-[200px] max-w-[900px] shadow-md shadow-2xl">
+          <h1>Exercices</h1>
+        </button>
       </div>
-    </div>
+    </Header>
   );
 }
 
