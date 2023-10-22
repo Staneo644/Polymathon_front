@@ -1,6 +1,5 @@
 import Document, { Html, Head, Main, NextScript } from 'next/document';
 import React from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
 
 export default class MyDocument extends Document {
   render(): JSX.Element {

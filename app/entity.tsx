@@ -4,7 +4,6 @@ export interface word {
   etymologie: string;
   gender: string;
   theme: string;
-  tags: string[];
 }
 
 export interface word_id extends word {

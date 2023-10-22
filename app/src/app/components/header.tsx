@@ -1,12 +1,9 @@
-'use client';
-import '../globals.css';
-import React, { useEffect, useRef, useState, RefObject, Children } from 'react';
-import { ListGroup, ListGroupItem } from 'react-bootstrap';
-import { FiArrowLeft, FiSettings } from 'react-icons/fi';
-import Link from 'next/link';
-import { useRouter } from 'next/navigation';
-import MyDocument from '../_document';
-import 'bootstrap/dist/css/bootstrap.css';
+'use client'
+import '../globals.css'
+import React, { useEffect, useRef, useState, RefObject } from 'react'
+import { ListGroup, ListGroupItem } from 'react-bootstrap'
+import { useRouter } from 'next/navigation'
+import 'bootstrap/dist/css/bootstrap.css'
 
 function Header({ children }: { children: React.ReactNode }): JSX.Element {
   useEffect(()=>{
@@ -18,6 +15,7 @@ function Header({ children }: { children: React.ReactNode }): JSX.Element {
   const optionRef: RefObject<HTMLButtonElement> = useRef(null);
 
   const handleTitleClick = (): void => {
+    router.push('/');
     setIsList(false);
   };
 
@@ -86,7 +84,7 @@ function Header({ children }: { children: React.ReactNode }): JSX.Element {
             />
           </svg>
         </button>
-        <button className="text-black text-2xl font-bold">Polymathon</button>
+        <button className="text-black text-2xl font-bold" onClick={handleTitleClick}>Polymathon</button>
         <button onClick={setOptionVisible} ref={optionRef}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
