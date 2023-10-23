@@ -1,14 +1,14 @@
-'use client'
-import '../globals.css'
-import React, { useEffect, useRef, useState, RefObject } from 'react'
-import { ListGroup, ListGroupItem } from 'react-bootstrap'
-import { useRouter } from 'next/navigation'
-import 'bootstrap/dist/css/bootstrap.css'
+'use client';
+import '../globals.css';
+import React, { useEffect, useRef, useState, RefObject } from 'react';
+import { ListGroup, ListGroupItem } from 'react-bootstrap';
+import { useRouter } from 'next/navigation';
+import 'bootstrap/dist/css/bootstrap.css';
 
 function Header({ children }: { children: React.ReactNode }): JSX.Element {
-  useEffect(()=>{
-    import("bootstrap/dist/js/bootstrap");
-},[])
+  useEffect(() => {
+    import('bootstrap/dist/js/bootstrap');
+  }, []);
   const router = useRouter();
   const [isList, setIsList] = useState(false);
   const buttonRef: RefObject<HTMLDivElement> = useRef(null);
@@ -84,7 +84,12 @@ function Header({ children }: { children: React.ReactNode }): JSX.Element {
             />
           </svg>
         </button>
-        <button className="text-black text-2xl font-bold" onClick={handleTitleClick}>Polymathon</button>
+        <button
+          className="text-black text-2xl font-bold"
+          onClick={handleTitleClick}
+        >
+          Polymathon
+        </button>
         <button onClick={setOptionVisible} ref={optionRef}>
           <svg
             xmlns="http://www.w3.org/2000/svg"

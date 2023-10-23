@@ -1,12 +1,24 @@
-import React, { useState, useRef } from "react";
-import oneCard from "./oneCard";
-import { word } from "../../../entity";
-
+import React, { useState, useRef } from 'react';
+import oneCard from './oneCard';
+import { word } from '../../../entity';
 
 var wordIndex = 0;
 var cardIndex = 0;
-const listCard: React.FC<word[]> = ( liste:word[]) => {
-    const [listCard, setListCard] = useState<oneCard[]>([new oneCard({word:liste[0], refPosition:'50%', transition:'0', _index: 0}), new oneCard({word:liste[1], refPosition:'150%', transition:'0', _index: 1})]);
+const listCard: React.FC<word[]> = (liste: word[]) => {
+  const [listCard, setListCard] = useState<oneCard[]>([
+    new oneCard({
+      word: liste[0],
+      refPosition: '50%',
+      transition: '0',
+      _index: 0,
+    }),
+    new oneCard({
+      word: liste[1],
+      refPosition: '150%',
+      transition: '0',
+      _index: 1,
+    }),
+  ]);
 
   const containerRefMiddle = useRef<HTMLDivElement | null>(null);
   const [isMouseDown, setIsMouseDown] = useState(false);
@@ -26,15 +38,15 @@ const listCard: React.FC<word[]> = ( liste:word[]) => {
   };
 
   const removeElementAtStart = () => {
-    console.log(listCard)
+    console.log(listCard);
     listCard.shift();
-    console.log(listCard)
+    console.log(listCard);
   };
 
   const handleMouseDown = (event: any) => {
     listCard.forEach((oneCard: any) => {
       oneCard.setTransition('0s');
-    })
+    });
     setYMouseDown(event.clientX);
     console.log('mouse down');
     setIsMouseDown(true);
@@ -45,32 +57,43 @@ const listCard: React.FC<word[]> = ( liste:word[]) => {
     listCard.forEach((oneCard: oneCard) => {
       oneCard.setTransition('0.5s');
       oneCard.setPosition(0);
-    })
+    });
     const px = event.clientX - yMouseDown;
     if (px > 150 && wordIndex > 0) {
       console.log('mouse up up');
       if (wordIndex !== liste.length - 1) {
         removeElementAtEnd();
       }
-      wordIndex = (wordIndex - 1);
+      wordIndex = wordIndex - 1;
       if (wordIndex === 0) {
-        cardIndex = (cardIndex - 1);
+        cardIndex = cardIndex - 1;
+      } else {
+        addElementAtStart(
+          new oneCard({
+            word: liste[wordIndex - 1],
+            refPosition: '-50%',
+            transition: '0.5s',
+            _index: wordIndex - 1,
+          }),
+        );
       }
-      else {
-        addElementAtStart(new oneCard({word:liste[wordIndex - 1], refPosition:'-50%', transition:'0.5s', _index: wordIndex - 1}));
-      }
-    }
-    else if (px < -150 && wordIndex < liste.length - 1) {
+    } else if (px < -150 && wordIndex < liste.length - 1) {
       if (wordIndex === 0) {
-        cardIndex = (cardIndex + 1);
-      }
-      else {
-        console.log('aaa')
+        cardIndex = cardIndex + 1;
+      } else {
+        console.log('aaa');
         removeElementAtStart();
       }
-      wordIndex =(wordIndex + 1);
+      wordIndex = wordIndex + 1;
       if (wordIndex !== liste.length - 1) {
-        addElementAtEnd(new oneCard({word:liste[wordIndex + 1], refPosition:'150%', transition:'0.5s', _index: wordIndex + 1}));
+        addElementAtEnd(
+          new oneCard({
+            word: liste[wordIndex + 1],
+            refPosition: '150%',
+            transition: '0.5s',
+            _index: wordIndex + 1,
+          }),
+        );
       }
       console.log('mouse up down ' + wordIndex + ' ' + cardIndex);
     }
@@ -81,7 +104,7 @@ const listCard: React.FC<word[]> = ( liste:word[]) => {
     if (cardIndex > 0) {
       listCard[cardIndex - 1].setRefPosition('-50%');
     }
-    
+
     setIsMouseDown(false);
   };
 
@@ -91,7 +114,7 @@ const listCard: React.FC<word[]> = ( liste:word[]) => {
       const px = event.clientX - yMouseDown;
       listCard.forEach((oneCard: any) => {
         oneCard.setPosition(px);
-      })
+      });
       setYCoord(yMouseDown + event.clientX);
     }
   };

@@ -18,8 +18,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-      <Header>{children}
-      </Header></body>
+        <Header>{children}</Header>
+      </body>
     </html>
   );
 }
