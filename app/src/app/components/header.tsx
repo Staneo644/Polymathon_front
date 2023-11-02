@@ -1,6 +1,7 @@
 'use client';
 import '../globals.css';
-import React, { useEffect, useRef, useState, RefObject } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import type { RefObject } from 'react';
 import { ListGroup, ListGroupItem } from 'react-bootstrap';
 import { useRouter } from 'next/navigation';
 import 'bootstrap/dist/css/bootstrap.css';
@@ -11,6 +12,7 @@ function Header({ children }: { children: React.ReactNode }): JSX.Element {
   }, []);
   const router = useRouter();
   const [isList, setIsList] = useState(false);
+  const [token, setToken] = useState(false)
   const buttonRef: RefObject<HTMLDivElement> = useRef(null);
   const optionRef: RefObject<HTMLButtonElement> = useRef(null);
 
@@ -20,6 +22,7 @@ function Header({ children }: { children: React.ReactNode }): JSX.Element {
   };
 
   const contactClick = (): void => {
+    router.push('/options/contact');
     setIsList(false);
   };
 
@@ -32,11 +35,19 @@ function Header({ children }: { children: React.ReactNode }): JSX.Element {
   };
 
   const logoutClick = (): void => {
-    //localStorage.removeItem('accessToken')
+    localStorage.removeItem("access_token")
+    setToken(false)
+    router.push('/')
     setIsList(false);
   };
 
-  const inscriptionClick = (): void => {
+  const favorisClick = (): void => {
+    router.push('/options/favoris');
+    setIsList(false);
+  };
+
+  const connectionClick = (): void => {
+    router.push('/options/connexion');
     setIsList(false);
   };
 
@@ -59,6 +70,14 @@ function Header({ children }: { children: React.ReactNode }): JSX.Element {
     };
 
     document.addEventListener('mouseup', handleClickOutside);
+
+    if(localStorage.getItem("access_token") !== null){
+      setToken(true);
+      console.log("Connecté")
+    }
+    else {
+      console.log("Déconnecté")
+    }
 
     return () => {
       document.removeEventListener('mouseup', handleClickOutside);
@@ -109,12 +128,12 @@ function Header({ children }: { children: React.ReactNode }): JSX.Element {
       </header>
       {isList && (
         <ListGroup ref={buttonRef} className="absolute top-58px right-0 z-10">
-          {true && (
-            <ListGroupItem action variant="dark" onClick={inscriptionClick}>
+          {!token && (
+            <ListGroupItem action variant="dark" onClick={connectionClick}>
               <h4>connexion</h4>
             </ListGroupItem>
           )}
-          {false && (
+          {token && (
             <>
               <ListGroupItem action variant="dark" onClick={logoutClick}>
                 <h4>déconnexion</h4>

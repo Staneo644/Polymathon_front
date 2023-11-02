@@ -1,3 +1,7 @@
+
+export const apiUrl = "http://localhost:3000";
+
+
 export interface word {
   name: string;
   definition: string;
@@ -41,3 +45,4 @@ export interface definition_wik {
   definition: string[];
   nature: string;
 }
+

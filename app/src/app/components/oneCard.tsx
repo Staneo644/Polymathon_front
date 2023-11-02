@@ -1,5 +1,5 @@
 import React from 'react';
-import { word } from '../../../entity';
+import type { word } from '../communication/entity';
 import { Card } from 'react-bootstrap';
 
 export class oneCard extends React.Component {
@@ -26,15 +26,19 @@ export class oneCard extends React.Component {
   public getIndex(): number {
     return this.index;
   }
-  public setPosition(position: number) {
+
+  public setPosition(position: number): void {
     this.position = position;
   }
-  public setRefPosition(refPosition: string) {
+
+  public setRefPosition(refPosition: string): void {
     this.refPosition = refPosition;
   }
-  public setTransition(transition: string) {
+
+  public setTransition(transition: string): void {
     this.transition = transition;
   }
+
   getCard(): any {
     return (
       <Card

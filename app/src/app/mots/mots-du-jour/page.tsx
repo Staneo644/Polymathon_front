@@ -1,9 +1,11 @@
 'use client';
 import { useState } from 'react';
+import type { ReactElement } from 'react';
 import listCard from '@/app/components/listCard';
-import { word } from '../../../../entity';
+import type { word } from '../../communication/entity';
+import { JSXElementConstructor } from 'react';
 
-const Daywords = () => {
+const Daywords = (): JSX.Element => {
   const [listWord] = useState<word[]>([
     {
       name: 'Tophet',
@@ -46,6 +48,6 @@ const Daywords = () => {
     },
   ]);
 
-  return listCard(listWord);
+  return <>{listCard(listWord)}</>;
 };
 export default Daywords;

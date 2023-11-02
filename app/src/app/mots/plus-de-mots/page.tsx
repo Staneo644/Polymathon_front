@@ -1,6 +1,5 @@
 'use client';
 import '../../globals.css';
-import Link from 'next/link';
 import React from 'react';
 import { useRouter } from 'next/navigation';
 
@@ -11,26 +10,26 @@ function Home(): JSX.Element {
       <button
         className="btn btn-primary btn-lg w-50 min-w-[200px] max-w-[900px] shadow-md shadow-2xl"
         onClick={() => {
-          router.push('/mots/mots-du-jour');
+          router.push('/mots/plus-de-mots/chercher');
         }}
       >
-        <h1>Mots du jour</h1>
+        <h1>Chercher</h1>
       </button>
       <button
         className="btn btn-primary btn-lg w-50 min-w-[200px] max-w-[900px] shadow-md shadow-2xl"
         onClick={() => {
-          router.push('/mots/plus-de-mots');
+          router.push('/mots/plus-de-mots/hasard');
         }}
       >
-        <h1>Plus de mots</h1>
+        <h1>Mots au hasard</h1>
       </button>
       <button
         className="btn btn-primary btn-lg w-50 min-w-[200px] max-w-[900px] shadow-md shadow-2xl"
         onClick={() => {
-          router.push('/exercices');
+          router.push('/mots/plus-de-mots/themes');
         }}
       >
-        <h1>Exercices</h1>
+        <h1>Par thèmes</h1>
       </button>
     </div>
   );

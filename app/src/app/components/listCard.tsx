@@ -1,9 +1,9 @@
 import React, { useState, useRef } from 'react';
 import oneCard from './oneCard';
-import { word } from '../../../entity';
+import type { word } from '../communication/entity';
 
-var wordIndex = 0;
-var cardIndex = 0;
+let wordIndex = 0;
+let cardIndex = 0;
 const listCard: React.FC<word[]> = (liste: word[]) => {
   const [listCard, setListCard] = useState<oneCard[]>([
     new oneCard({
@@ -25,25 +25,25 @@ const listCard: React.FC<word[]> = (liste: word[]) => {
   const [yMouseDown, setYMouseDown] = useState(0);
   const [yCoord, setYCoord] = useState(0);
 
-  const addElementAtEnd = (element: oneCard) => {
+  const addElementAtEnd = (element: oneCard): void => {
     listCard.push(element);
   };
 
-  const addElementAtStart = (element: oneCard) => {
+  const addElementAtStart = (element: oneCard): void => {
     listCard.unshift(element);
   };
 
-  const removeElementAtEnd = () => {
+  const removeElementAtEnd = (): void => {
     listCard.pop();
   };
 
-  const removeElementAtStart = () => {
+  const removeElementAtStart = (): void => {
     console.log(listCard);
     listCard.shift();
     console.log(listCard);
   };
 
-  const handleMouseDown = (event: any) => {
+  const handleMouseDown = (event: any): void => {
     listCard.forEach((oneCard: any) => {
       oneCard.setTransition('0s');
     });
@@ -52,7 +52,7 @@ const listCard: React.FC<word[]> = (liste: word[]) => {
     setIsMouseDown(true);
   };
 
-  const handleMouseUp = (event: any) => {
+  const handleMouseUp = (event: any): void => {
     console.log('mouse up');
     listCard.forEach((oneCard: oneCard) => {
       oneCard.setTransition('0.5s');
@@ -108,7 +108,7 @@ const listCard: React.FC<word[]> = (liste: word[]) => {
     setIsMouseDown(false);
   };
 
-  const handleMouseMove = (event: any) => {
+  const handleMouseMove = (event: any): void => {
     if (isMouseDown && containerRefMiddle.current) {
       console.log('mouse move');
       const px = event.clientX - yMouseDown;
