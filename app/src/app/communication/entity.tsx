@@ -46,3 +46,7 @@ export interface definition_wik {
   nature: string;
 }
 
+export interface grid {
+  index: string;
+  value: string[];
+}

@@ -2,14 +2,14 @@ import axios from "axios";
 import { apiUrl } from "./entity";
 import type { user, user_id } from "./entity";
 
-export const createUser = async (user: user) => {
+export const createUser = async (user: user): Promise<boolean> => {
   try {
     console.log(user);
     const response = await axios.post(`${apiUrl}/user`, user);
+    if (!response || !response.data)
+      return false
     localStorage.setItem('access_token', response.data.access_token);
-    console.log(response);
-    console.log(response.data.access_token);
-    return response.data;
+    return(true)
   } catch (error) {
     throw error;
   }
@@ -50,15 +50,16 @@ export const isUser = async (id: number) => {
   }
 };
 
-export const login = async (user: user) => {
+export const login = async (user: user) : Promise<boolean> => {
   try {
     console.log(user);
     const response = await axios.post(`${apiUrl}/user/login`, user);
-    if (response && response.data && response.data.access_token)
+    if (response && response.data && response.data.access_token) {
+
       localStorage.setItem('access_token', response.data.access_token);
-    console.log(response);
-    console.log(response.data.access_token);
-    return response.data;
+      return true
+    }
+    return false
   } catch (error) {
     throw error;
   }

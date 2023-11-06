@@ -4,14 +4,18 @@ import { useState } from 'react';
 import Link from 'next/link';
 import validator from 'validator';
 import { createUser, login } from '../communication/user';
+import { Result } from 'postcss';
+import { faL } from '@fortawesome/free-solid-svg-icons';
+import { useRouter } from 'next/navigation';
 
 const LoginRegister = (isLogin: boolean) => {
+  const router = useRouter();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
 
 
-  const handleLogin = (): void => {
+  const handleLogin = async (): Promise<void> => {
     if (!email || !password) {
       setErrorMessage('Veuillez remplir tous les champs');
       return;
@@ -22,10 +26,25 @@ const LoginRegister = (isLogin: boolean) => {
     }
 
     if (isLogin) {
-      login({ email, password })
+      
+      const res = await login({ email, password });
+        console.log(res)
+        if (res === false) {
+          setErrorMessage('Email ou mot de passe incorrect');
+        }
+        router.back()
+        router.refresh(); 
     } else {
-      createUser({ email, password })
-    }
+      const res = await createUser({ email, password });
+        if (res === false) {
+          setErrorMessage("Problème lors de l'inscription");
+        } else {
+          setErrorMessage('');
+          router.back()
+          router.refresh();
+        }
+      };
+    
   };
 
   return (

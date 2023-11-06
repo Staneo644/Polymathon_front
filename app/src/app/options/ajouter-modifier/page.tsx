@@ -26,12 +26,15 @@ function AddChangeWord(): JSX.Element {
   };
 
   const addWord = async () => {
-    await createPotentialWord({ name: searchWord,
+    await createPotentialWord({
+      name: searchWord,
       etymologie: etymologie,
       definition: definition,
-      type: type,
-      positive_note: 0,
-      negative_note: 0,
+      id: 0,
+      wiki_def: [],
+      user: '',
+      gender: type,
+      theme: ''
     });
   }
 

@@ -56,3 +56,12 @@ export const getRandomWord = async ():Promise<word_id> => {
       throw error;
     }
   };
+
+  export const getDayWord = async ():Promise<word_id[] | null> => {
+    try {
+      const response = await axios.get(`${apiUrl}/word/day`);
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  }

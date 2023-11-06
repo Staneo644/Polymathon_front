@@ -1,12 +1,20 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import oneCard from './oneCard';
 import type { word } from '../communication/entity';
 
 let wordIndex = 0;
 let cardIndex = 0;
 const listCard: React.FC<word[]> = (liste: word[]) => {
-  const [listCard, setListCard] = useState<oneCard[]>([
-    new oneCard({
+  const containerRefMiddle = useRef<HTMLDivElement | null>(null);
+  const [isMouseDown, setIsMouseDown] = useState(false);
+  const [yMouseDown, setYMouseDown] = useState(0);
+  const [yCoord, setYCoord] = useState(0);
+  const [listCard, setListCard] = useState<oneCard[]>([])
+  useEffect(() => {
+    if (liste && liste.length > 0)
+    setListCard(
+      [
+        new oneCard({
       word: liste[0],
       refPosition: '50%',
       transition: '0',
@@ -18,13 +26,12 @@ const listCard: React.FC<word[]> = (liste: word[]) => {
       transition: '0',
       _index: 1,
     }),
-  ]);
-
-  const containerRefMiddle = useRef<HTMLDivElement | null>(null);
-  const [isMouseDown, setIsMouseDown] = useState(false);
-  const [yMouseDown, setYMouseDown] = useState(0);
-  const [yCoord, setYCoord] = useState(0);
-
+  ]);}, [liste])
+  
+  if (!liste || liste.length === 0) {
+    return <div className='text-white'>Liste de mots vide, vérifiez votre connexion</div>;
+  }
+  
   const addElementAtEnd = (element: oneCard): void => {
     listCard.push(element);
   };
@@ -129,7 +136,7 @@ const listCard: React.FC<word[]> = (liste: word[]) => {
       onTouchEnd={handleMouseUp}
       onTouchMove={handleMouseMove}
     >
-      {listCard.map((element) => (
+      {listCard && listCard.length > 0 && listCard.map((element) => (
         <div key={element.getIndex()}>{element.getCard()}</div>
       ))}
     </div>

@@ -7,7 +7,7 @@ import Link from 'next/link';
 import { Button } from 'bootstrap';
 import { useRouter } from 'next/navigation';
 import { word_id } from '../../../communication/entity';
-import WordGrid from '@/app/components/grid';
+import WordGrid from '@/app/components/wordGrid';
 
 function Search(): JSX.Element {
   const router = useRouter();
