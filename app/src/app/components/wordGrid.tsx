@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { grid, word } from '../communication/entity';
-import gridFunction from './grid';
+import { word } from '../communication/entity';
+import gridFunction, {grid} from './grid';
 
 
 export default function WordGrid(word: word[]){
@@ -31,7 +31,7 @@ export default function WordGrid(word: word[]){
         });
         ret.push({index:"Étymologie", value:[]});
         word.forEach(element => {
-            ret[ret.length - 1].value.push(element.etymologie);
+            ret[ret.length - 1].value.push(element.etymology);
         });
         return ret;
     }

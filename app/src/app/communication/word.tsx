@@ -39,11 +39,14 @@ export const getRandomWord = async ():Promise<word_id> => {
     }
   };
   
-  export const getWordByName = async (name: string): Promise<word_id> => {
+  export const getWordByName = async (name: string): Promise<word_id | null> => {
     try {
-      const response = await axios.get(`${apiUrl}/word/word`, { data: { name } });
+      const response = await axios.get(`${apiUrl}/word/${name}`);
       return response.data;
     } catch (error) {
+      if ((error as { response?: { status?: number } }).response?.status === 404) {
+        return null;
+      }
       throw error;
     }
   };

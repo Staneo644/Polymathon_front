@@ -1,10 +1,17 @@
-import React, { use } from 'react';
-import { grid } from '../communication/entity';
+import React, { useState } from 'react';
 import ConfirmationDialog from './confirmation';
+import {useRouter} from 'next/navigation';
+
+export interface grid {
+  index: string;
+  value: string[];
+}
 
 const gridFunction = (wordList: grid[]): JSX.Element => {
-
-  
+  const [showDialog, setShowDialog] = useState(false);
+  const [dialogText, setDialogText] = useState("");
+  const router = useRouter();
+  const [wordClicked, setWordClicked] = useState("");
 
   console.log(wordList);
 
@@ -36,7 +43,7 @@ const gridFunction = (wordList: grid[]): JSX.Element => {
         </thead>
         <tbody className="bg-white divide-y divide-x divide-gray-200">
           {value.map((word, index) => (
-            <tr key={index} className={`grid grid-cols-${wordList.length}`} onClick={() => {console.log("YUI")}}>
+            <tr key={index} className={`grid grid-cols-${wordList.length}`} onClick={() => {setWordClicked(word[0]);setDialogText("Êtes vous sûr de vouloir modifier le mot " + word[0]) ; setShowDialog(true)}}>
               {word.map((word, index) => (
                 <td key={index} className="max-h-40 overflow-scroll px-2 py-2 border-r">
                   <div className="overflow-scroll">{word}</div>
@@ -46,7 +53,7 @@ const gridFunction = (wordList: grid[]): JSX.Element => {
           ))}
         </tbody>
       </table>
-      {ConfirmationDialog(()=> {})}
+      {showDialog && (ConfirmationDialog(() => {router.push('/options/modifier?mot=' + wordClicked)}, dialogText, () => {setShowDialog(false)}))}
     </div>
   );
 };

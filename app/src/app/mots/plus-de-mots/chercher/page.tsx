@@ -9,61 +9,68 @@ import { useRouter } from 'next/navigation';
 import { word_id } from '../../../communication/entity';
 import WordGrid from '@/app/components/wordGrid';
 
+
 function Search(): JSX.Element {
   const router = useRouter();
   const [searchWord, setSearchWord] = useState('');
   const [wordNotFind, setWordNotFind] = useState(false);
+  const login = localStorage.getItem('access_token');
   const [listWord, setListWord] = useState<word_id[]>([
     {
       name: 'Tophet',
-      etymologie:
+      etymology:
         "vient de l'hébreu <tōfet> qui désigne un lieu prés de Jérusalem, où, selon la bible, les cananéens sacrifiaient leurs enfants",
       definition:
         'désigne la partie centrale des sanctuaire dans les religions phéniciennes, dans lequel il y a des urnes contenant les cendres des enfants et animaux sacrifiés, et où se trouvent de nombreuses stèles votives',
       gender: 'feminin',
       theme: 'famille',
+      example: 'Le tophet de Carthage',
       id: 1,
       positive_note: 0,
       negative_note: 0,
     },
     {
       name: 'Échanson',
-      etymologie:
+      etymology:
         'vient du vieux allemand <skenkan> qui veut dire "verser à boire"',
       definition:
         "officier chargé de servir à boire à une personne de haut rang, personne de confiance, en raison de la crainte de complot, Hébé était la déesse de la jeunesse, et l'échanson des dieux dans la mythologie grecque, Béhémoth est l'échanson des enfers, l'échanson avait aussi un blason au Moyen-Âge",
       gender: 'feminin',
       theme: 'famille',
+      example: 'L\'échanson du roi',
       id: 2,
       positive_note: 0,
       negative_note: 0,
     },
     {
       name: 'Me revoilà',
-      etymologie: 'comment ça va',
+      etymology: 'comment ça va',
       definition: 'ça va et toi',
       gender: 'feminin',
       theme: 'famille',
+      example: 'Me revoilà',
       id: 3,
       positive_note: 0,
       negative_note: 0,
     },
     {
       name: 'Me revoilo',
-      etymologie: 'comment ça va',
+      etymology: 'comment ça va',
       definition: 'ça va et toi',
       gender: 'feminin',
       theme: 'famille',
+      example: 'Me revoilà',
       id: 4,
       positive_note: 0,
       negative_note: 0,
     },
     {
       name: 'Paraleiloidation',
-      etymologie: 'comment ça va',
+      etymology: 'comment ça va',
       definition: 'ça va et toi',
       gender: 'nom feminin',
       theme: 'géographie',
+      example: 'Me revoilà',
       id: 5,
       positive_note: 0,
       negative_note: 0,
@@ -82,13 +89,10 @@ function Search(): JSX.Element {
   };
 
   const addWord = () => {
-    router.push('/options/ajouter-modifier?word=' + searchWord + '&action=add');
-  };
-
-  const changeWord = () => {
-    router.push(
-      '/options/ajouter-modifier?word=' + searchWord + '&action=change',
-    );
+    if (login)
+      router.push('/options/ajouter?mot=' + searchWord);
+    else
+      router.push('/options/connexion');
   };
 
   return (
@@ -112,11 +116,20 @@ function Search(): JSX.Element {
         {wordNotFind && (
           <button
             className="text-white mb-4 text-xl bg-orange-800"
-                                    onClick={addWord}
-                                >
-                                    Aucun mot n'a été trouvé, cliquez ici pour l'apporter
-                                </button>
-                            )}
+            onClick={addWord}
+          >
+            {login && 
+            <>
+              Aucun mot n'a été trouvé, cliquez ici pour l'apporter
+            </>
+            }
+            {!login &&
+            <>
+              Aucun mot n'a été trouvé, veuillez vous connecter pour l'apporter
+            </>
+            }
+          </button>
+      )}
                             
                             <div
                                 className='max-h-80 overflow-y-auto w-100'

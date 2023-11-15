@@ -5,7 +5,8 @@ export const apiUrl = "http://localhost:3000";
 export interface word {
   name: string;
   definition: string;
-  etymologie: string;
+  etymology: string;
+  example: string;
   gender: string;
   theme: string;
 }
@@ -44,9 +45,4 @@ export interface theme_id extends theme {
 export interface definition_wik {
   definition: string[];
   nature: string;
-}
-
-export interface grid {
-  index: string;
-  value: string[];
 }

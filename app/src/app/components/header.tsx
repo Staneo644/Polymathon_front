@@ -15,12 +15,12 @@ function Header({ children }: { children: React.ReactNode }): JSX.Element {
   const [token, setToken] = useState(false)
   const buttonRef: RefObject<HTMLDivElement> = useRef(null);
   const optionRef: RefObject<HTMLButtonElement> = useRef(null);
-
+  
   const handleTitleClick = (): void => {
     router.push('/');
     setIsList(false);
   };
-
+  
   const contactClick = (): void => {
     router.push('/options/contact');
     setIsList(false);
@@ -29,7 +29,7 @@ function Header({ children }: { children: React.ReactNode }): JSX.Element {
   const modificationClick = (): void => {
     setIsList(false);
   };
-
+  
   const profilClick = (): void => {
     setIsList(false);
   };
@@ -64,25 +64,24 @@ function Header({ children }: { children: React.ReactNode }): JSX.Element {
       if (
         buttonRef.current?.contains(event.target as Node) === false &&
         optionRef.current?.contains(event.target as Node) === false
-      ) {
-        setIsList(false);
+        ) {
+          setIsList(false);
+        }
+      };
+      
+      document.addEventListener('mouseup', handleClickOutside);
+
+      if (localStorage.getItem("access_token") !== null) {
+        setToken(true);
+        console.log("Connecté")
+      } else {
+        console.log("Déconnecté")
       }
-    };
 
-    document.addEventListener('mouseup', handleClickOutside);
-
-    if(localStorage.getItem("access_token") !== null){
-      setToken(true);
-      console.log("Connecté")
-    }
-    else {
-      console.log("Déconnecté")
-    }
-
-    return () => {
-      document.removeEventListener('mouseup', handleClickOutside);
-    };
-  }, []);
+      return () => {
+        document.removeEventListener('mouseup', handleClickOutside);
+      };
+    }, []);
 
   return (
     <>
@@ -138,11 +137,11 @@ function Header({ children }: { children: React.ReactNode }): JSX.Element {
               <ListGroupItem action variant="dark" onClick={logoutClick}>
                 <h4>déconnexion</h4>
               </ListGroupItem>
-              <ListGroupItem action variant="dark" onClick={modificationClick}>
-                <h4>ajouter/modifier</h4>
-              </ListGroupItem>
               <ListGroupItem action variant="dark" onClick={profilClick}>
                 <h4>profil</h4>
+              </ListGroupItem>
+              <ListGroupItem action variant="dark" onClick={favorisClick}>
+                <h4>favoris</h4>
               </ListGroupItem>
             </>
           )}

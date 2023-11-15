@@ -37,7 +37,7 @@ const WordGrid = (wordList: word[] | potential_word_id[]): JSX.Element => {
               </td>
               <td className="px-2 py-2 overflow-x-auto border-r">
                 <div className="w-72">
-                    {word.etymologie}
+                    {word.etymology}
                     </div>
               </td>
               <td className="px-2 py-2 border-r">{word.theme}</td>

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { apiUrl } from './entity'
+import { apiUrl, word } from './entity'
 import { potential_word_id } from './entity'
 
 
@@ -14,10 +14,10 @@ export const getPotentialWords = async (): Promise<potential_word_id[]> => {
   }
 };
 
-export const createPotentialWord = async (potentialWord: potential_word_id) => {
+export const createPotentialWord = async (potentialWord: word, word:string) => {
   try {
     console.log(localStorage.getItem('access_token'));
-    const response = await axios.post(`${apiUrl}/potential-word`, potentialWord,
+    const response = await axios.post(`${apiUrl}/potential-word/${word}`, potentialWord,
     {headers: {
       'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
     }}

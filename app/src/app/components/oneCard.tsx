@@ -70,7 +70,7 @@ export class oneCard extends React.Component {
           }}
         >
           {' '}
-          {this.word.etymologie}{' '}
+          {this.word.etymology}{' '}
         </p>
         <h2 style={{ fontSize: '40px' }}>
           <p
