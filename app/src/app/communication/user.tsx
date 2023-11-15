@@ -1,15 +1,14 @@
-import axios from "axios";
-import { apiUrl } from "./entity";
-import type { user, user_id } from "./entity";
+import axios from 'axios';
+import { apiUrl } from './entity';
+import type { user, user_id } from './entity';
 
 export const createUser = async (user: user): Promise<boolean> => {
   try {
     console.log(user);
     const response = await axios.post(`${apiUrl}/user`, user);
-    if (!response || !response.data)
-      return false
+    if (!response || !response.data) return false;
     localStorage.setItem('access_token', response.data.access_token);
-    return(true)
+    return true;
   } catch (error) {
     throw error;
   }
@@ -17,9 +16,11 @@ export const createUser = async (user: user): Promise<boolean> => {
 
 export const deleteUser = async (id: number) => {
   try {
-    await axios.delete(`${apiUrl}/user/${id}`, {headers: {
-      'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
-    }});
+    await axios.delete(`${apiUrl}/user/${id}`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('access_token')}`,
+      },
+    });
   } catch (error) {
     throw error;
   }
@@ -50,16 +51,15 @@ export const isUser = async (id: number) => {
   }
 };
 
-export const login = async (user: user) : Promise<boolean> => {
+export const login = async (user: user): Promise<boolean> => {
   try {
     console.log(user);
     const response = await axios.post(`${apiUrl}/user/login`, user);
     if (response && response.data && response.data.access_token) {
-
       localStorage.setItem('access_token', response.data.access_token);
-      return true
+      return true;
     }
-    return false
+    return false;
   } catch (error) {
     throw error;
   }

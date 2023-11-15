@@ -9,7 +9,6 @@ import { useRouter } from 'next/navigation';
 import { word_id } from '../../../communication/entity';
 import WordGrid from '@/app/components/wordGrid';
 
-
 function Search(): JSX.Element {
   const router = useRouter();
   const [searchWord, setSearchWord] = useState('');
@@ -37,7 +36,7 @@ function Search(): JSX.Element {
         "officier chargé de servir à boire à une personne de haut rang, personne de confiance, en raison de la crainte de complot, Hébé était la déesse de la jeunesse, et l'échanson des dieux dans la mythologie grecque, Béhémoth est l'échanson des enfers, l'échanson avait aussi un blason au Moyen-Âge",
       gender: 'feminin',
       theme: 'famille',
-      example: 'L\'échanson du roi',
+      example: "L'échanson du roi",
       id: 2,
       positive_note: 0,
       negative_note: 0,
@@ -89,10 +88,8 @@ function Search(): JSX.Element {
   };
 
   const addWord = () => {
-    if (login)
-      router.push('/options/ajouter?mot=' + searchWord);
-    else
-      router.push('/options/connexion');
+    if (login) router.push('/options/ajouter?mot=' + searchWord);
+    else router.push('/options/connexion');
   };
 
   return (
@@ -118,25 +115,24 @@ function Search(): JSX.Element {
             className="text-white mb-4 text-xl bg-orange-800"
             onClick={addWord}
           >
-            {login && 
-            <>
-              Aucun mot n'a été trouvé, cliquez ici pour l'apporter
-            </>
-            }
-            {!login &&
-            <>
-              Aucun mot n'a été trouvé, veuillez vous connecter pour l'apporter
-            </>
-            }
+            {login && (
+              <>Aucun mot n'a été trouvé, cliquez ici pour l'apporter</>
+            )}
+            {!login && (
+              <>
+                Aucun mot n'a été trouvé, veuillez vous connecter pour
+                l'apporter
+              </>
+            )}
           </button>
-      )}
-                            
-                            <div
-                                className='max-h-80 overflow-y-auto w-100'
-                            >{WordGrid([...listWord, ...listWord, ...listWord, ...listWord])}</div>
-                        </div>
-                    </div>
-                );
-            }
+        )}
 
-            export default Search;
+        <div className="max-h-80 overflow-y-auto w-100">
+          {WordGrid([...listWord, ...listWord, ...listWord, ...listWord])}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default Search;

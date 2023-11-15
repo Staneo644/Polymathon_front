@@ -10,8 +10,7 @@ const Daywords = (): JSX.Element => {
 
   const changeListWord = async () => {
     const ret = await getDayWord();
-    if (ret)
-      setListWord(ret);
+    if (ret) setListWord(ret);
   };
 
   changeListWord();

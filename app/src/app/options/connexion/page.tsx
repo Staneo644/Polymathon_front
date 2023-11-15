@@ -4,7 +4,6 @@ import validator from 'validator';
 import { createUser, login } from '@/app/communication/user';
 import { useRouter } from 'next/navigation';
 
-
 const LoginRegister = () => {
   const [isLogin, setIsLogin] = useState(true);
   const router = useRouter();
@@ -12,9 +11,8 @@ const LoginRegister = () => {
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
 
-  const buttonClasse = "inline-block px-2 py-1 text-blue-500 rounded-md cursor-pointer hover:bg-blue-700 focus:outline-none focus:shadow-outline-blue active:bg-blue-800"
-
-
+  const buttonClasse =
+    'inline-block px-2 py-1 text-blue-500 rounded-md cursor-pointer hover:bg-blue-700 focus:outline-none focus:shadow-outline-blue active:bg-blue-800';
 
   useEffect(() => {
     const token = localStorage.getItem('access_token');
@@ -34,27 +32,24 @@ const LoginRegister = () => {
     }
 
     if (isLogin) {
-      
       const res = await login({ email, password });
-        console.log(res)
-        if (res === false) {
-          setErrorMessage('Email ou mot de passe incorrect');
-        }
-        else {
-          window.location.pathname = window.location.pathname
-        }
-        // router.back()
+      console.log(res);
+      if (res === false) {
+        setErrorMessage('Email ou mot de passe incorrect');
+      } else {
+        window.location.pathname = window.location.pathname;
+      }
+      // router.back()
     } else {
       const res = await createUser({ email, password });
-        if (res === false) {
-          setErrorMessage("Problème lors de l'inscription");
-        } else {
-          setErrorMessage('');
-          router.refresh();
-          // router.back()
-        }
-      };
-    
+      if (res === false) {
+        setErrorMessage("Problème lors de l'inscription");
+      } else {
+        setErrorMessage('');
+        router.refresh();
+        // router.back()
+      }
+    }
   };
 
   return (
@@ -92,7 +87,10 @@ const LoginRegister = () => {
           <div className="mt-4">
             <p>
               Pas de compte ?{'  '}
-              <button onClick={() => setIsLogin(false)} className={buttonClasse}>
+              <button
+                onClick={() => setIsLogin(false)}
+                className={buttonClasse}
+              >
                 Inscrivez-vous
               </button>
             </p>
@@ -106,7 +104,7 @@ const LoginRegister = () => {
                 Connectez-vous
               </button>
             </p>
-            </div>
+          </div>
         )}
       </div>
     </div>

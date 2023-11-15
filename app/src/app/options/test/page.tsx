@@ -1,10 +1,13 @@
-'use client'
+'use client';
 import { useState } from 'react';
 
 const CustomSelect = () => {
-  const [selectedItems, setSelectedItems] = useState<string[]>(['Option 1', 'Option 2', 'Option 3']);
+  const [selectedItems, setSelectedItems] = useState<string[]>([
+    'Option 1',
+    'Option 2',
+    'Option 3',
+  ]);
   const [showOptions, setShowOptions] = useState(false);
-
 
   const toggleOptions = () => {
     setShowOptions(!showOptions);
@@ -66,14 +69,14 @@ const CustomSelect = () => {
 };
 
 const YourPage = () => {
-    return (
-      <div className="flex flex-col space-y-4 items-center h-100 w-100 justify-evenly text-black">
-        <h1>Your Page</h1>
-        <CustomSelect />
-{/* 
+  return (
+    <div className="flex flex-col space-y-4 items-center h-100 w-100 justify-evenly text-black">
+      <h1>Your Page</h1>
+      <CustomSelect />
+      {/* 
         <SelectComponent /> */}
-      </div>
-    );
-  };
-  
-  export default YourPage;
+    </div>
+  );
+};
+
+export default YourPage;

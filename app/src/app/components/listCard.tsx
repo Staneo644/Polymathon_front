@@ -9,29 +9,33 @@ const listCard: React.FC<word[]> = (liste: word[]) => {
   const [isMouseDown, setIsMouseDown] = useState(false);
   const [yMouseDown, setYMouseDown] = useState(0);
   const [yCoord, setYCoord] = useState(0);
-  const [listCard, setListCard] = useState<oneCard[]>([])
+  const [listCard, setListCard] = useState<oneCard[]>([]);
   useEffect(() => {
     if (liste && liste.length > 0)
-    setListCard(
-      [
+      setListCard([
         new oneCard({
-      word: liste[0],
-      refPosition: '50%',
-      transition: '0',
-      _index: 0,
-    }),
-    new oneCard({
-      word: liste[1],
-      refPosition: '150%',
-      transition: '0',
-      _index: 1,
-    }),
-  ]);}, [liste])
-  
+          word: liste[0],
+          refPosition: '50%',
+          transition: '0',
+          _index: 0,
+        }),
+        new oneCard({
+          word: liste[1],
+          refPosition: '150%',
+          transition: '0',
+          _index: 1,
+        }),
+      ]);
+  }, [liste]);
+
   if (!liste || liste.length === 0) {
-    return <div className='text-white'>Liste de mots vide, vérifiez votre connexion</div>;
+    return (
+      <div className="text-white">
+        Liste de mots vide, vérifiez votre connexion
+      </div>
+    );
   }
-  
+
   const addElementAtEnd = (element: oneCard): void => {
     listCard.push(element);
   };
@@ -136,9 +140,11 @@ const listCard: React.FC<word[]> = (liste: word[]) => {
       onTouchEnd={handleMouseUp}
       onTouchMove={handleMouseMove}
     >
-      {listCard && listCard.length > 0 && listCard.map((element) => (
-        <div key={element.getIndex()}>{element.getCard()}</div>
-      ))}
+      {listCard &&
+        listCard.length > 0 &&
+        listCard.map((element) => (
+          <div key={element.getIndex()}>{element.getCard()}</div>
+        ))}
     </div>
   );
 };

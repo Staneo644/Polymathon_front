@@ -12,15 +12,15 @@ function Header({ children }: { children: React.ReactNode }): JSX.Element {
   }, []);
   const router = useRouter();
   const [isList, setIsList] = useState(false);
-  const [token, setToken] = useState(false)
+  const [token, setToken] = useState(false);
   const buttonRef: RefObject<HTMLDivElement> = useRef(null);
   const optionRef: RefObject<HTMLButtonElement> = useRef(null);
-  
+
   const handleTitleClick = (): void => {
     router.push('/');
     setIsList(false);
   };
-  
+
   const contactClick = (): void => {
     router.push('/options/contact');
     setIsList(false);
@@ -29,15 +29,15 @@ function Header({ children }: { children: React.ReactNode }): JSX.Element {
   const modificationClick = (): void => {
     setIsList(false);
   };
-  
+
   const profilClick = (): void => {
     setIsList(false);
   };
 
   const logoutClick = (): void => {
-    localStorage.removeItem("access_token")
-    setToken(false)
-    router.push('/')
+    localStorage.removeItem('access_token');
+    setToken(false);
+    router.push('/');
     setIsList(false);
   };
 
@@ -64,24 +64,24 @@ function Header({ children }: { children: React.ReactNode }): JSX.Element {
       if (
         buttonRef.current?.contains(event.target as Node) === false &&
         optionRef.current?.contains(event.target as Node) === false
-        ) {
-          setIsList(false);
-        }
-      };
-      
-      document.addEventListener('mouseup', handleClickOutside);
-
-      if (localStorage.getItem("access_token") !== null) {
-        setToken(true);
-        console.log("Connecté")
-      } else {
-        console.log("Déconnecté")
+      ) {
+        setIsList(false);
       }
+    };
 
-      return () => {
-        document.removeEventListener('mouseup', handleClickOutside);
-      };
-    }, []);
+    document.addEventListener('mouseup', handleClickOutside);
+
+    if (localStorage.getItem('access_token') !== null) {
+      setToken(true);
+      console.log('Connecté');
+    } else {
+      console.log('Déconnecté');
+    }
+
+    return () => {
+      document.removeEventListener('mouseup', handleClickOutside);
+    };
+  }, []);
 
   return (
     <>
