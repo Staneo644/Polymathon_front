@@ -3,16 +3,15 @@ import '../../../globals.css';
 import React, { useState } from 'react';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import Link from 'next/link';
-import { Button } from 'bootstrap';
 import { useRouter } from 'next/navigation';
 import { word_id } from '../../../communication/entity';
 import WordGrid from '@/app/components/wordGrid';
+import { getWordByName } from '@/app/communication/word';
 
 function Search(): JSX.Element {
   const router = useRouter();
-  const [searchWord, setSearchWord] = useState('');
   const [wordNotFind, setWordNotFind] = useState(false);
+  const [searchWord, setSearchWord] = useState('');
   const login = localStorage.getItem('access_token');
   const [listWord, setListWord] = useState<word_id[]>([
     {
@@ -77,8 +76,17 @@ function Search(): JSX.Element {
   ]);
   const searchToBack = () => {
     let ret = searchWord.toLowerCase();
-    console.log(ret);
-    setWordNotFind(true);
+    getWordByName(ret).then((word:word_id|null) => {
+      console.log(word);
+      if (word == null)
+        setWordNotFind(true);
+      else {
+        setWordNotFind(false);
+        const list = [word]
+        setListWord([])
+        setListWord(list);
+      }
+    });
   };
 
   const handleKeyPress = (e: any): void => {
@@ -110,7 +118,7 @@ function Search(): JSX.Element {
       </div>
 
       <div>
-        {wordNotFind && (
+      {wordNotFind && (
           <button
             className="text-white mb-4 text-xl bg-orange-800"
             onClick={addWord}
@@ -128,7 +136,7 @@ function Search(): JSX.Element {
         )}
 
         <div className="max-h-80 overflow-y-auto w-100">
-          {WordGrid([...listWord, ...listWord, ...listWord, ...listWord])}
+          {WordGrid(listWord)}
         </div>
       </div>
     </div>

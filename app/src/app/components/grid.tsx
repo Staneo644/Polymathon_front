@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import ConfirmationDialog from './confirmation';
 import { useRouter } from 'next/navigation';
 
@@ -12,8 +12,7 @@ const gridFunction = (wordList: grid[]): JSX.Element => {
   const [dialogText, setDialogText] = useState('');
   const router = useRouter();
   const [wordClicked, setWordClicked] = useState('');
-
-  console.log(wordList);
+  const [value, setValue] = useState<string[][]> ([]);
 
   const completeGrid = (): string[][] => {
     let ret: string[][] = [];
@@ -33,7 +32,11 @@ const gridFunction = (wordList: grid[]): JSX.Element => {
     return ret;
   };
 
-  const value = completeGrid();
+  useEffect(() => {
+    console.log(wordList);
+    setValue(completeGrid());
+  }, [wordList]);
+
 
   return (
     <div className="container mx-auto overflow-scroll w-90vw">
@@ -51,7 +54,8 @@ const gridFunction = (wordList: grid[]): JSX.Element => {
           </tr>
         </thead>
         <tbody className="bg-white divide-y divide-x divide-gray-200">
-          {value.map((word, index) => (
+          
+          {value.length > 0 && value.map((word, index) => (
             <tr
               key={index}
               className={`grid grid-cols-${wordList.length}`}

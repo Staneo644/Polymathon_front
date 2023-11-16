@@ -6,12 +6,23 @@ import { useSearchParams } from 'next/navigation';
 import { word } from '@/app/communication/entity';
 import { getWordByName } from '@/app/communication/word';
 import form from '@/app/components/form';
+import { createPotentialWord } from '@/app/communication/potential_word';
+
 
 function AddChangeWord(): JSX.Element {
   const searchParam = useSearchParams();
-  const wordId = searchParam?.get('mot') ?? '';
+  const [wordId, setWordId] = useState([searchParam?.get('mot') ?? ''])
 
-  return form([wordId]);
+  const addWord = async (word:word) => {
+    createPotentialWord(
+      word,
+      -1,
+    );
+  };
+
+
+  // return(<></>)
+  return form(wordId, addWord, null);
 }
 
 export default AddChangeWord;

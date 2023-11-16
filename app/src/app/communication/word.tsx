@@ -41,6 +41,7 @@ export const deleteWord = async (id: number) => {
 export const getWordByName = async (name: string): Promise<word_id | null> => {
   try {
     const response = await axios.get(`${apiUrl}/word/${name}`);
+    console.log(response.data);
     return response.data;
   } catch (error) {
     if (
@@ -69,3 +70,13 @@ export const getDayWord = async (): Promise<word_id[] | null> => {
     throw error;
   }
 };
+
+export const getWordById = async (id: number): Promise<word_id> => {
+  try {
+    const response = await axios.get(`${apiUrl}/word/id/${id}`);
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+
+}

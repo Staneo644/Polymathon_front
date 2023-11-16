@@ -84,7 +84,14 @@ const SelectTheme = (
     return allThemes.filter((theme) => theme.parent == option.name).length > 0;
   };
 
-  const getCssClass = (option: theme_id) => {
+  const getCssClass = (option: theme_id):string => {
+    if (!checkbox && selectedThemes.includes(option.name)) {
+      if (option.parent == null) {
+        return 'block px-4 py-2 text-sm bg-gray-100 cursor-pointer';}
+      else {
+        return 'block px-4 py-2 text-sm bg-gray-100 cursor-pointer ml-4';}
+        
+    }
     if (option.parent == null) {
       return 'block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer';
     } else {
@@ -98,11 +105,21 @@ const SelectTheme = (
         <span
           onClick={() => setIsOpen(!isOpen)}
           ref={buttonRef}
-          className="cursor-pointer border border-gray-300 py-2 inline-flex items-center bg-white w-80 rounded p-2 max-w-[700px]"
+          className="cursor-pointer border border-gray-300 py-2 inline-flex items-center bg-gray-100 w-80 rounded p-2 max-w-[700px]"
         >
           {selectedThemes.length > 0
             ? selectedThemes.join(', ')
             : 'Select options'}
+            {
+              selectedThemes[0] == '' &&
+              <div className='text-gray-400'>
+                Selectionnez
+              </div>
+            }
+            <FontAwesomeIcon
+                        icon={faAngleDown}
+                        className="mr-2 absolute right-0"
+              />
         </span>
       </div>
 

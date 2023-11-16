@@ -34,6 +34,9 @@ export default function WordGrid(word: word[]) {
     });
     return ret;
   };
+  useEffect(() => {
+    setGrid(convertToGrid());
+  }, [word]);
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
