@@ -76,14 +76,13 @@ function Search(): JSX.Element {
   ]);
   const searchToBack = () => {
     let ret = searchWord.toLowerCase();
-    getWordByName(ret).then((word:word_id|null) => {
+    getWordByName(ret).then((word: word_id | null) => {
       console.log(word);
-      if (word == null)
-        setWordNotFind(true);
+      if (word == null) setWordNotFind(true);
       else {
         setWordNotFind(false);
-        const list = [word]
-        setListWord([])
+        const list = [word];
+        setListWord([]);
         setListWord(list);
       }
     });
@@ -118,7 +117,7 @@ function Search(): JSX.Element {
       </div>
 
       <div>
-      {wordNotFind && (
+        {wordNotFind && (
           <button
             className="text-white mb-4 text-xl bg-orange-800"
             onClick={addWord}

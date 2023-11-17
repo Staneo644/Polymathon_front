@@ -4,16 +4,19 @@ import { useEffect, useState } from 'react';
 import { clickedTheme } from './theme';
 import { word } from '../communication/entity';
 
-export default function form(content: string[], click: (word:word) => void, reject: null | (() => void)): JSX.Element {
+export default function form(
+  content: string[],
+  click: (word: word) => void,
+  reject: null | (() => void),
+): JSX.Element {
   const router = useRouter();
-  const [searchWord, setSearchWord] = useState(''
-  );
-  const [definition, setDefinition] = useState(''
-  );
+  const [searchWord, setSearchWord] = useState('');
+  const [definition, setDefinition] = useState('');
   const [etymology, setetymology] = useState('');
   const [example, setExample] = useState('');
   const [gender, setGender] = useState('');
   const [theme, setTheme] = useState('');
+  const [completeField, setCompleteField] = useState(false);
 
   useEffect(() => {
     setSearchWord(content.length > 0 ? content[0] : '');
@@ -34,61 +37,74 @@ export default function form(content: string[], click: (word:word) => void, reje
         onChange={(e) => setSearchWord(e.target.value)}
       />
       <select
-        className="w-80 border rounded p-2 max-w-[700px]"
+        className={`w-80 border rounded p-2 max-w-[700px] ${gender === '' ? 'text-gray-400' : ''}`}
         onChange={(e) => setGender(e.target.value)}
         value={gender}
       >
+        <option value="" disabled hidden style={{ fontStyle: 'italic', color: 'grey' }}>
+            Selectionnez
+        </option>
         <option value="adj">Adjectif</option>
         <option value="n.m.">Nom masculin</option>
         <option value="n.f.">Nom féminin</option>
         <option value="v">Verbe</option>
         <option value="adv">Adverbe</option>
+        <option value="expr">Expression</option>
         <option value="autre">Autre</option>
       </select>
       {clickedTheme(theme, setTheme)}
       <textarea
-   
         placeholder="Définition"
         className="border rounded p-2 max-w-[700px] w-80"
         onChange={(e) => setDefinition(e.target.value)}
         value={definition}
       ></textarea>
       <textarea
-   
         placeholder="Étymologie"
         className="border rounded p-2 max-w-[700px] w-80"
         onChange={(e) => setetymology(e.target.value)}
         value={etymology}
       />
       <textarea
-   
         placeholder="Exemples"
         className="border rounded p-2 max-w-[700px] w-80"
         onChange={(e) => setExample(e.target.value)}
         value={example}
       ></textarea>
+      
+      {completeField && (
+        <p className="text-red-500 mb-4">Veuillez remplir tous les champs</p>
+      )}
+
       <button
         className="bg-blue-500 text-white py-2 px-4 rounded max-w-[700px]"
         onClick={() => {
+          if (searchWord == '' || etymology == '' || definition === '' || gender === '' || example === '' || theme === '') {
+            setCompleteField(true);
+            return;
+          }
           click({
             name: searchWord,
             etymology: etymology,
             definition: definition,
             gender: gender,
             example: example,
-            theme: theme})
+            theme: theme,
+          });
         }}
       >
         Soumettre
       </button>
-      {reject && <button
-        className="bg-red-500 text-white py-2 px-4 rounded max-w-[700px]"
-        onClick={() => {
-          reject()
-        }}
-      >
-        Rejeter
-      </button>}
+      {reject && (
+        <button
+          className="bg-red-500 text-white py-2 px-4 rounded max-w-[700px]"
+          onClick={() => {
+            reject();
+          }}
+        >
+          Rejeter
+        </button>
+      )}
     </div>
   );
 }

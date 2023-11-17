@@ -20,34 +20,30 @@ export default function updateWord() {
     getWordByName(wordId).then((word) => {
       if (word !== null) {
         setSearchWord(word);
-      }}
-    )
-  }
-  , []);
+      }
+    });
+  }, []);
 
   useEffect(() => {
-      if (searchWord)
-        setListWord([
+    if (searchWord)
+      setListWord([
         searchWord.name,
         searchWord.definition,
         searchWord.etymology,
         searchWord.example,
         searchWord.gender,
-        searchWord.theme,]);
-      else setListWord([]);
+        searchWord.theme,
+      ]);
+    else setListWord([]);
   }, [searchWord]);
 
   const changeWord = (word: word) => {
-    if (searchWord)
-      createPotentialWord(word, searchWord.id);
-  }
+    if (searchWord) createPotentialWord(word, searchWord.id);
+  };
 
   return (
     <>
-      {
-        form(
-          
-        listWord, changeWord, null)}
+      {form(listWord, changeWord, null)}
       {/* {!searchWord && (
         <div className="text-white">
           Recherche du mot {wordId}, si la recherche est longue, vérifiez votre

@@ -4,7 +4,7 @@ import validator from 'validator';
 import { createUser, login } from '@/app/communication/user';
 import { useRouter } from 'next/navigation';
 
-const LoginRegister = () => {
+const LoginRegister = (): JSX.Element => {
   const [isLogin, setIsLogin] = useState(true);
   const router = useRouter();
   const [email, setEmail] = useState('');

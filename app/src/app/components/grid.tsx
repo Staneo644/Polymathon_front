@@ -12,7 +12,7 @@ const gridFunction = (wordList: grid[]): JSX.Element => {
   const [dialogText, setDialogText] = useState('');
   const router = useRouter();
   const [wordClicked, setWordClicked] = useState('');
-  const [value, setValue] = useState<string[][]> ([]);
+  const [value, setValue] = useState<string[][]>([]);
 
   const completeGrid = (): string[][] => {
     let ret: string[][] = [];
@@ -37,7 +37,6 @@ const gridFunction = (wordList: grid[]): JSX.Element => {
     setValue(completeGrid());
   }, [wordList]);
 
-
   return (
     <div className="container mx-auto overflow-scroll w-90vw">
       <table className="min-w-full divide-y divide-x divide-gray-200 overflow-scroll">
@@ -54,29 +53,29 @@ const gridFunction = (wordList: grid[]): JSX.Element => {
           </tr>
         </thead>
         <tbody className="bg-white divide-y divide-x divide-gray-200">
-          
-          {value.length > 0 && value.map((word, index) => (
-            <tr
-              key={index}
-              className={`grid grid-cols-${wordList.length}`}
-              onClick={() => {
-                setWordClicked(word[0]);
-                setDialogText(
-                  'Êtes vous sûr de vouloir modifier le mot ' + word[0],
-                );
-                setShowDialog(true);
-              }}
-            >
-              {word.map((word, index) => (
-                <td
-                  key={index}
-                  className="max-h-40 overflow-scroll px-2 py-2 border-r"
-                >
-                  <div className="overflow-scroll">{word}</div>
-                </td>
-              ))}
-            </tr>
-          ))}
+          {value.length > 0 &&
+            value.map((word, index) => (
+              <tr
+                key={index}
+                className={`grid grid-cols-${wordList.length}`}
+                onClick={() => {
+                  setWordClicked(word[0]);
+                  setDialogText(
+                    'Êtes vous sûr de vouloir modifier le mot ' + word[0],
+                  );
+                  setShowDialog(true);
+                }}
+              >
+                {word.map((word, index) => (
+                  <td
+                    key={index}
+                    className="max-h-40 overflow-scroll px-2 py-2 border-r"
+                  >
+                    <div className="overflow-scroll">{word}</div>
+                  </td>
+                ))}
+              </tr>
+            ))}
         </tbody>
       </table>
       {showDialog &&

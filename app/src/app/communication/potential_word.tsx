@@ -36,28 +36,30 @@ export const createPotentialWord = async (
 
 export const rejectPotentialWord = async (id: number) => {
   try {
-    const response = await axios.delete(`${apiUrl}/potential-word/${id}`,
-    {
+    const response = await axios.delete(`${apiUrl}/potential-word/${id}`, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('access_token')}`,
       },
-    },);
+    });
     return response.data;
   } catch (error) {
     throw error;
   }
 };
 
-export const acceptPotentialWord = async (id: number, word:word) => {
+export const acceptPotentialWord = async (id: number, word: word) => {
   try {
-    const response = await axios.post(`${apiUrl}/potential-word/validate/${id}`,word,
-    {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem('access_token')}`,
+    const response = await axios.post(
+      `${apiUrl}/potential-word/validate/${id}`,
+      word,
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('access_token')}`,
+        },
       },
-    },);
+    );
     return response.data;
   } catch (error) {
     throw error;
   }
-}
+};

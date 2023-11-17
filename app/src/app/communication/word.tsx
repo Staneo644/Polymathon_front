@@ -78,5 +78,4 @@ export const getWordById = async (id: number): Promise<word_id> => {
   } catch (error) {
     throw error;
   }
-
-}
+};
