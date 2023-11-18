@@ -37,12 +37,19 @@ export default function form(
         onChange={(e) => setSearchWord(e.target.value)}
       />
       <select
-        className={`w-80 border rounded p-2 max-w-[700px] ${gender === '' ? 'text-gray-400' : ''}`}
+        className={`w-80 border rounded p-2 max-w-[700px] ${
+          gender === '' ? 'text-gray-400' : ''
+        }`}
         onChange={(e) => setGender(e.target.value)}
         value={gender}
       >
-        <option value="" disabled hidden style={{ fontStyle: 'italic', color: 'grey' }}>
-            Selectionnez
+        <option
+          value=""
+          disabled
+          hidden
+          style={{ fontStyle: 'italic', color: 'grey' }}
+        >
+          Selectionnez
         </option>
         <option value="adj">Adjectif</option>
         <option value="n.m.">Nom masculin</option>
@@ -71,7 +78,7 @@ export default function form(
         onChange={(e) => setExample(e.target.value)}
         value={example}
       ></textarea>
-      
+
       {completeField && (
         <p className="text-red-500 mb-4">Veuillez remplir tous les champs</p>
       )}
@@ -79,7 +86,14 @@ export default function form(
       <button
         className="bg-blue-500 text-white py-2 px-4 rounded max-w-[700px]"
         onClick={() => {
-          if (searchWord == '' || etymology == '' || definition === '' || gender === '' || example === '' || theme === '') {
+          if (
+            searchWord == '' ||
+            etymology == '' ||
+            definition === '' ||
+            gender === '' ||
+            example === '' ||
+            theme === ''
+          ) {
             setCompleteField(true);
             return;
           }

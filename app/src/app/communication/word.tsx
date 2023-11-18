@@ -2,7 +2,7 @@ import axios from 'axios';
 import { apiUrl } from './entity';
 import type { word_id } from './entity';
 
-export const getRandomWord = async (): Promise<word_id> => {
+export const getRandomWord = async (): Promise<word_id[]> => {
   try {
     const response = await axios.get(`${apiUrl}/word/random`);
     return response.data;

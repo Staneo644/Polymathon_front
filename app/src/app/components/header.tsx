@@ -150,9 +150,7 @@ function Header({ children }: { children: React.ReactNode }): JSX.Element {
           </ListGroupItem>
         </ListGroup>
       )}
-      <div className="bg-indigo-800 overflow-hidden h-[calc(100vh-48px)]">
-        {children}
-      </div>
+      <div className="overflow-hidden h-[calc(100vh-48px)]">{children}</div>
     </>
   );
 }
