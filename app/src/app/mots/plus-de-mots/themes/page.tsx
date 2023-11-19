@@ -1,6 +1,7 @@
 'use client';
 import { checkboxTheme } from '@/app/components/theme';
 import { useState } from 'react';
+import '../../../globals.css'
 
 export default function SearchByTheme() {
   const [selectedTheme, setSelectedTheme] = useState<string[]>([]);

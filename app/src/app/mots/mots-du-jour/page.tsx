@@ -15,6 +15,6 @@ const Daywords = (): JSX.Element => {
     });
   }, []);
 
-  return <>{listCardComponent(listWord)}</>;
+  return <>{listCardComponent(listWord, null)}</>;
 };
 export default Daywords;

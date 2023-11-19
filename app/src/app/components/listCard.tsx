@@ -1,10 +1,11 @@
 import React, { useState, useRef, useEffect } from 'react';
 import oneCard from './oneCard';
 import type { word_id } from '../communication/entity';
+// import '../globals.css'
 
 let wordIndex = 0;
 let cardIndex = 0;
-const listCardComponent: React.FC<word_id[]> = (liste: word_id[], onEnd: null | (()=>void)) => {
+function listCardComponent (liste: word_id[], onEnd: null | (()=>void)) {
   const containerRefMiddle = useRef<HTMLDivElement | null>(null);
   const [isMouseDown, setIsMouseDown] = useState(false);
   const [yMouseDown, setYMouseDown] = useState(0);
@@ -25,7 +26,7 @@ const listCardComponent: React.FC<word_id[]> = (liste: word_id[], onEnd: null | 
 
   const moveToRight = (): void => {
     if (checked() && wordIndex < liste.length - 1) {
-      if (wordIndex === liste.length - 2) {
+      if (wordIndex === liste.length - 3) {
         if (onEnd)
           onEnd();
       }

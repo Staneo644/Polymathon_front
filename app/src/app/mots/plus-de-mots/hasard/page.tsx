@@ -15,6 +15,13 @@ const randoWords = (): JSX.Element => {
     });
   }, []);
 
-  return <>{listCardComponent(listWord)}</>;
+  const getMoreWords = () => {
+    getRandomWord().then((res) => {
+        const newList = listWord.concat(res);
+        setListWord(newList);
+    });
+  }
+
+  return <>{listCardComponent(listWord, getMoreWords)}</>;
 };
 export default randoWords;

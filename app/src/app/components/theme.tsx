@@ -100,12 +100,12 @@ const SelectTheme = (
   };
 
   return (
-    <div className="relative inline-block text-left">
+    <div className="relative inline-block text-left min-w-80 max-w-fit">
       <div>
         <span
           onClick={() => setIsOpen(!isOpen)}
           ref={buttonRef}
-          className="cursor-pointer border border-gray-300 py-2 inline-flex items-center bg-gray-100 w-80 rounded p-2 max-w-[700px]"
+          className="cursor-pointer border border-gray-300 py-2 inline-flex items-center bg-gray-100 min-w-80 max-w-fit rounded p-2 text-black"
         >
           {selectedThemes.length > 0
             ? selectedThemes.join(', ')

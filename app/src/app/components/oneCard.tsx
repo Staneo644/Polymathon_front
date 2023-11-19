@@ -82,11 +82,11 @@ class OneCard extends React.Component {
            
               <span className='text-gray-600'>
 
-                {this.word.theme}
+                {this.word.theme + ' : '}
               </span>
           
           
-          )}{' : ' + this.word.definition}
+          )}{this.word.definition}
         </div>
       </div>
     );
