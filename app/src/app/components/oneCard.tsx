@@ -1,7 +1,9 @@
 import React from 'react';
-import type { word_id } from '../communication/entity';
+import { note, word_id } from '../communication/entity';
 import EtymologyComponent from './etymology';
 import { faThumbsUp, faThumbsDown } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { noteWord } from '../communication/word';
 
 class OneCard extends React.Component {
   constructor(props: {
@@ -9,14 +11,15 @@ class OneCard extends React.Component {
     refPosition: string;
     transition: string;
     _index: number;
+    onChange: (word: word_id) => void;
   }) {
     super(props);
     this.word = props.word;
-    console.log(this.word.theme);
     this.position = 0;
     this.transition = props.transition;
     this.refPosition = props.refPosition;
     this.index = props._index;
+    this.onChange = props.onChange;
   }
 
   index: number;
@@ -24,6 +27,40 @@ class OneCard extends React.Component {
   position: number;
   transition: string;
   refPosition: string;
+  onChange: (word: word_id) => void;
+
+  noteMyWord = async (myNote: note): Promise<void> => {
+    noteWord(this.word.id, myNote).then((note_ret) => {
+      console.log(this.word.personnal_note)
+      if (myNote === note.positif ) {
+        if (this.word.personnal_note === note.positif) {
+          this.word.positive_note = this.word.positive_note - 1;
+          this.word.personnal_note = note.neutre;
+        }
+        else {
+
+          if (this.word.personnal_note === note.negatif) {
+            this.word.negative_note = this.word.negative_note - 1;
+          }
+          this.word.positive_note = this.word.positive_note + 1;
+        }
+          
+      }
+      if (myNote === note.negatif) {
+        if (this.word.personnal_note === note.negatif) {
+          this.word.negative_note = this.word.negative_note - 1;
+        }
+        else {
+          if (this.word.personnal_note === note.positif) {
+            this.word.positive_note = this.word.positive_note - 1;
+          }
+          this.word.negative_note = this.word.negative_note + 1;
+        }
+      }
+      this.word.personnal_note = note_ret;
+      this.onChange(this.word);
+    })
+  }
 
   getIndex(): number {
     return this.index;
@@ -41,10 +78,14 @@ class OneCard extends React.Component {
     this.transition = transition;
   }
 
+  getWord(): word_id {
+    return this.word;
+  }
+
   getCard(): any {
     return (
       <div
-        className="text-black overflow-y-scroll"
+        className="text-black overflow-y-scroll flex flex-col"
         style={{
           width: '85vw',
           justifyContent: 'center',
@@ -63,8 +104,7 @@ class OneCard extends React.Component {
           transition: this.transition,
         }}
       >
-        <div className='mt-2 ml-2 text-xl italic font-serif'
-        >
+        <div className="mt-2 ml-2 text-xl italic font-serif">
           {EtymologyComponent(this.word.etymology)}
         </div>
         <div className="flex items-center justify-center whitespace-pre">
@@ -79,15 +119,35 @@ class OneCard extends React.Component {
         </div>
         <div className="mb-2 ml-2 text-xl italic font-serif">
           {this.word.theme !== 'Sans thème' && (
-           
-              <span className='text-gray-600'>
-
-                {this.word.theme + ' : '}
-              </span>
-          
-          
-          )}{this.word.definition}
+            <span className="text-gray-600">{this.word.theme + ' : '}</span>
+          )}
+          {this.word.definition}
         </div>
+        <div className="mb-2 ml-2 flex justify-between items-center">
+
+          <div className="fixed left-0 ml-2 mb-3 mt-2">
+
+        <button onClick={()=> {this.noteMyWord(note.positif)}}>
+        <FontAwesomeIcon
+            className='text-green-500'
+            icon={faThumbsUp}
+            
+            />
+            </button>
+            {'(' + this.word.positive_note + ')'}
+            </div>
+
+        <div className="fixed right-0 mr-2 mb-3 mt-2">
+          <button onClick={()=> {this.noteMyWord(note.negatif)}}>
+        <FontAwesomeIcon
+            className='text-red-500'
+            icon={faThumbsDown}
+            />
+          </button>
+          {'(' + this.word.negative_note + ')'}
+          </div>
+            </div>
+
       </div>
     );
   }

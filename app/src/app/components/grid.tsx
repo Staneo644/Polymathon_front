@@ -81,7 +81,7 @@ const gridFunction = (wordList: grid[]): JSX.Element => {
       {showDialog &&
         ConfirmationDialog(
           () => {
-            router.push('/options/modifier?mot=' + wordClicked);
+            router.push('/options/modifier?mot=' + wordClicked.substring(0, wordClicked.lastIndexOf(' ')));
           },
           dialogText,
           () => {

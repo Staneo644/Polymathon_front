@@ -20,3 +20,9 @@ body {
   color: rgb(var(--foreground-rgb));
   background: #3730a3;
 }
+
+.custom-width {
+  width: 80%;
+  min-width: 200px;
+  max-width: 500px;
+}

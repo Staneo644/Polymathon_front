@@ -1,20 +1,42 @@
 import React, { useState, useRef, useEffect } from 'react';
 import oneCard from './oneCard';
 import type { word_id } from '../communication/entity';
+import { seeWord } from '../communication/word';
 // import '../globals.css'
 
-let wordIndex = 0;
+let wordIndex = -1;
 let cardIndex = 0;
-function listCardComponent (liste: word_id[], onEnd: null | (()=>void)) {
+let oldWordIndex = -1;
+function listCardComponent(liste: word_id[], setList:(word:word_id[])=>void,onEnd: null | (() => void)) {
   const containerRefMiddle = useRef<HTMLDivElement | null>(null);
   const [isMouseDown, setIsMouseDown] = useState(false);
   const [yMouseDown, setYMouseDown] = useState(0);
   const [yCoord, setYCoord] = useState(0);
   const [listCard, setListCard] = useState<oneCard[]>([]);
+  const login = typeof localStorage !== 'undefined' ? localStorage.getItem('access_token') : '';
+
+
+  const onChangeWord = (word: word_id) => {
+    liste[wordIndex] = word;
+    console.log(liste);
+    setYCoord(yCoord + 1);
+    setList(liste);
+  }
 
   const checked = (): boolean => {
     return liste && liste.length > 0;
   };
+
+  const seeingWord = (word:word_id) => {
+    seeWord(word.id)
+    oldWordIndex = wordIndex;
+  }
+  
+  useEffect(() => {
+    if (login && login !== '' && oldWordIndex < wordIndex && listCard[cardIndex]) {
+      seeingWord(listCard[cardIndex].getWord());
+    }
+  }, [wordIndex]);
 
   const rebootListCard = () => {
     listCard.forEach((oneCard: oneCard) => {
@@ -27,8 +49,7 @@ function listCardComponent (liste: word_id[], onEnd: null | (()=>void)) {
   const moveToRight = (): void => {
     if (checked() && wordIndex < liste.length - 1) {
       if (wordIndex === liste.length - 3) {
-        if (onEnd)
-          onEnd();
+        if (onEnd) onEnd();
       }
       if (wordIndex === 0) {
         cardIndex = cardIndex + 1;
@@ -43,6 +64,7 @@ function listCardComponent (liste: word_id[], onEnd: null | (()=>void)) {
             refPosition: '150%',
             transition: '0.5s',
             _index: wordIndex + 1,
+            onChange: onChangeWord,
           }),
         );
       }
@@ -65,6 +87,7 @@ function listCardComponent (liste: word_id[], onEnd: null | (()=>void)) {
             refPosition: '-50%',
             transition: '0.5s',
             _index: wordIndex - 1,
+            onChange: onChangeWord,
           }),
         );
       }
@@ -82,18 +105,24 @@ function listCardComponent (liste: word_id[], onEnd: null | (()=>void)) {
             refPosition: '50%',
             transition: '0',
             _index: 0,
+            onChange: onChangeWord,
           }),
-          );
-          if (liste.length > 1) {
-            ret.push(
-          new oneCard({
-            word: liste[1],
-            refPosition: '150%',
-            transition: '0',
-            _index: 1,
-          }),
+        );
+        if (liste.length > 1) {
+          ret.push(
+            new oneCard({
+              word: liste[1],
+              refPosition: '150%',
+              transition: '0',
+              _index: 1,
+              onChange: onChangeWord,
+            }),
           );
         }
+      }
+      if (wordIndex === -1) {
+        wordIndex = 0;
+        seeingWord(liste[0]);
       }
     }
     setListCard(ret);
@@ -208,6 +237,6 @@ function listCardComponent (liste: word_id[], onEnd: null | (()=>void)) {
       )}
     </>
   );
-};
+}
 
 export default listCardComponent;

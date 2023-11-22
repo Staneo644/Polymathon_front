@@ -26,10 +26,10 @@ function Home(): JSX.Element {
       <button
         className="btn btn-primary btn-lg w-50 min-w-[200px] max-w-[900px] shadow-md shadow-2xl"
         onClick={() => {
-          router.push('/exercices');
+          router.push('/chercher');
         }}
       >
-        <h1>Exercices</h1>
+        <h1>Chercher</h1>
       </button>
     </div>
   );

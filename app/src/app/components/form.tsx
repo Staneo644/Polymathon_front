@@ -32,12 +32,12 @@ export default function form(
       <input
         type="text"
         placeholder="Mot"
-        className="w-80 border rounded p-2 max-w-[700px]"
+        className="custom-width border rounded p-2"
         value={searchWord}
         onChange={(e) => setSearchWord(e.target.value)}
       />
       <select
-        className={`w-80 border rounded p-2 max-w-[700px] ${
+        className={`border rounded p-2 custom-width ${
           gender === '' ? 'text-gray-400' : ''
         }`}
         onChange={(e) => setGender(e.target.value)}
@@ -62,19 +62,19 @@ export default function form(
       {clickedTheme(theme, setTheme)}
       <textarea
         placeholder="Définition"
-        className="border rounded p-2 max-w-[700px] w-80"
+        className="border rounded p-2 custom-width"
         onChange={(e) => setDefinition(e.target.value)}
         value={definition}
       ></textarea>
       <textarea
         placeholder="Étymologie"
-        className="border rounded p-2 max-w-[700px] w-80"
+        className="border rounded p-2 custom-width"
         onChange={(e) => setetymology(e.target.value)}
         value={etymology}
       />
       <textarea
         placeholder="Exemples"
-        className="border rounded p-2 max-w-[700px] w-80"
+        className="border rounded p-2 custom-width"
         onChange={(e) => setExample(e.target.value)}
         value={example}
       ></textarea>
@@ -84,7 +84,7 @@ export default function form(
       )}
 
       <button
-        className="bg-blue-500 text-white py-2 px-4 rounded max-w-[700px]"
+        className="bg-blue-500 text-white py-2 px-4 rounded custom-width"
         onClick={() => {
           if (
             searchWord == '' ||
@@ -111,7 +111,7 @@ export default function form(
       </button>
       {reject && (
         <button
-          className="bg-red-500 text-white py-2 px-4 rounded max-w-[700px]"
+          className="bg-red-500 text-white py-2 px-4 rounded custom-width"
           onClick={() => {
             reject();
           }}

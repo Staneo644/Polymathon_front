@@ -44,12 +44,28 @@ export const changeEmail = async (id: number, newEmail: string) => {
 
 export const isUser = async (id: number) => {
   try {
-    const response = await axios.get(`${apiUrl}/user/${id}`);
+    const response = await axios.get(`${apiUrl}/user/isUser/${id}`);
     return response.data;
   } catch (error) {
     throw error;
   }
 };
+
+export const getUserEmail = async (): Promise<user_id> => {
+  const token = localStorage.getItem('access_token');
+  console.log(token);
+  try {
+    const response = await axios.get(`${apiUrl}/user/email`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+}
 
 export const login = async (user: user): Promise<boolean> => {
   try {

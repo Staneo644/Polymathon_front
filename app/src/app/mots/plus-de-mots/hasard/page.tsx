@@ -1,6 +1,6 @@
 'use client';
 import { useState } from 'react';
-import type { ReactElement } from 'react';
+import '../../../globals.css';
 import listCardComponent from '@/app/components/listCard';
 import type { word_id } from '../../../communication/entity';
 import { getDayWord, getRandomWord } from '../../../communication/word';
@@ -17,11 +17,11 @@ const randoWords = (): JSX.Element => {
 
   const getMoreWords = () => {
     getRandomWord().then((res) => {
-        const newList = listWord.concat(res);
-        setListWord(newList);
+      const newList = listWord.concat(res);
+      setListWord(newList);
     });
-  }
+  };
 
-  return <>{listCardComponent(listWord, getMoreWords)}</>;
+  return <>{listCardComponent(listWord, setListWord, getMoreWords)}</>;
 };
 export default randoWords;

@@ -29,8 +29,9 @@ function Header({ children }: { children: React.ReactNode }): JSX.Element {
   const modificationClick = (): void => {
     setIsList(false);
   };
-
+  
   const profilClick = (): void => {
+    router.push('/options/profil');
     setIsList(false);
   };
 
@@ -150,7 +151,7 @@ function Header({ children }: { children: React.ReactNode }): JSX.Element {
           </ListGroupItem>
         </ListGroup>
       )}
-      <div className="overflow-hidden h-[calc(100vh-48px)]">{children}</div>
+      <div className="overflow-scroll h-[calc(100vh-48px)]">{children}</div>
     </>
   );
 }

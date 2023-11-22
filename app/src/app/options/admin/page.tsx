@@ -15,16 +15,16 @@ export default function App() {
   const [listWord, setListWord] = useState<potential_word_id[]>([]);
   const [showList, setShowList] = useState<string[]>([]);
   const [oldWord, setOldWord] = useState<word | null>();
-  const [state, setState] = useState<number>(0)
+  const [state, setState] = useState<number>(0);
 
   useEffect(() => {
     getPotentialWords().then((list) => {
       setListWord(list);
     });
   }, []);
-  
+
   useEffect(() => {
-    setState(listWord.length > 0 ? 2: 1)
+    setState(listWord.length > 0 ? 2 : 1);
     if (listWord.length > 0) {
       setShowList([
         listWord[0].name,
@@ -44,9 +44,6 @@ export default function App() {
     }
     console.log(showList);
   }, [listWord]);
-
-
-
 
   const click = (word: word) => {
     if (listWord.length > 0) {
@@ -83,7 +80,7 @@ export default function App() {
     <>
       {form(showList, click, reject)}
       <div className="absolute z-index-2 left-10 overflow-scroll max-h-100 top-12 text-white">
-        {state == 2 &&
+        {state == 2 && listWord.length > 0 &&
           listWord[0].wiki_def.map((def) => {
             return (
               <div className="border rounded w-80">
@@ -94,9 +91,9 @@ export default function App() {
               </div>
             );
           })}
-          { <></>}
-      {state == 1 && <>Plus de mots à valider</>}
-      {state == 0 && <>En recherche de mots</>}
+        {<></>}
+        {state == 1 && <>Plus de mots à valider</>}
+        {state == 0 && <>En recherche de mots</>}
       </div>
 
       <div className="absolute z-index-2 right-10 overflow-scroll max-h-100 top-12 text-white">

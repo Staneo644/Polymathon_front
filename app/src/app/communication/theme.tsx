@@ -36,3 +36,4 @@ export const getRandomWordsByTheme = async (themeId: number) => {
     throw error;
   }
 };
+
