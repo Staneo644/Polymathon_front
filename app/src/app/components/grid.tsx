@@ -33,7 +33,6 @@ const gridFunction = (wordList: grid[]): JSX.Element => {
   };
 
   useEffect(() => {
-    console.log(wordList);
     setValue(completeGrid());
   }, [wordList]);
 
@@ -81,7 +80,7 @@ const gridFunction = (wordList: grid[]): JSX.Element => {
       {showDialog &&
         ConfirmationDialog(
           () => {
-            router.push('/options/modifier?mot=' + wordClicked.substring(0, wordClicked.lastIndexOf(' ')));
+            router.push('/options/modifier?mot=' + wordClicked.substring(0, wordClicked.lastIndexOf(' ',  wordClicked.lastIndexOf(' ') - 1)));
           },
           dialogText,
           () => {

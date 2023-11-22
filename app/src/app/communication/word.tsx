@@ -158,3 +158,42 @@ export const getWordsByThemes = async (themeNames: string[]) => {
     throw error;
   }
 }
+
+export const getLikedWords = async (Like:boolean): Promise<word_id[]> => {
+  try {
+    if (Like) {
+
+      const response = await axios.get(`${apiUrl}/word/liked`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('access_token')}`,
+        },
+      });
+      return response.data;
+    }
+    else {
+      const response = await axios.get(`${apiUrl}/word/disliked`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('access_token')}`,
+        },
+      });
+      return response.data;
+    }
+  } catch (error) {
+    throw error;
+  }
+}
+
+export const getPopularWords = async (Like:boolean): Promise<word_id[]> => {
+  try {
+    if (Like) {
+    const response = await axios.get(`${apiUrl}/word/popular`);
+    return response.data;
+    }
+    else {
+      const response = await axios.get(`${apiUrl}/word/unpopular`);
+      return response.data;
+    }
+  } catch (error) {
+    throw error;
+  }
+}

@@ -26,9 +26,6 @@ function Header({ children }: { children: React.ReactNode }): JSX.Element {
     setIsList(false);
   };
 
-  const modificationClick = (): void => {
-    setIsList(false);
-  };
   
   const profilClick = (): void => {
     router.push('/options/profil');
@@ -39,11 +36,6 @@ function Header({ children }: { children: React.ReactNode }): JSX.Element {
     localStorage.removeItem('access_token');
     setToken(false);
     router.push('/');
-    setIsList(false);
-  };
-
-  const favorisClick = (): void => {
-    router.push('/options/favoris');
     setIsList(false);
   };
 
@@ -59,6 +51,11 @@ function Header({ children }: { children: React.ReactNode }): JSX.Element {
   const goBackClick = (): void => {
     router.back();
   };
+
+  const parametreClick = (): void => {
+    router.push('/options/parametre');
+    setIsList(false);
+  }
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent): void => {
@@ -141,11 +138,12 @@ function Header({ children }: { children: React.ReactNode }): JSX.Element {
               <ListGroupItem action variant="dark" onClick={profilClick}>
                 <h4>profil</h4>
               </ListGroupItem>
-              <ListGroupItem action variant="dark" onClick={favorisClick}>
-                <h4>favoris</h4>
-              </ListGroupItem>
             </>
           )}
+          <ListGroupItem action variant="dark" onClick={contactClick}>
+            <h4>paramètre</h4>
+          </ListGroupItem>
+
           <ListGroupItem action variant="dark" onClick={contactClick}>
             <h4>contact</h4>
           </ListGroupItem>

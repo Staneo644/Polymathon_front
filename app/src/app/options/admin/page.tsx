@@ -97,7 +97,7 @@ export default function App() {
       </div>
 
       <div className="absolute z-index-2 right-10 overflow-scroll max-h-100 top-12 text-white">
-        {oldWord && <div className="border rounded w-80">{showOldWord()}</div>}
+        {oldWord && <div className="border rounded w-80">{"Vient de " + listWord[0].user + "\n" +showOldWord()}</div>}
       </div>
     </>
   );

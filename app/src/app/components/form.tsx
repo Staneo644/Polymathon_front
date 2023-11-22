@@ -28,7 +28,7 @@ export default function form(
   }, [content]);
 
   return (
-    <div className="flex flex-col space-y-4 items-center h-100 w-100 justify-evenly text-black">
+    <div className="flex flex-col space-y-0 items-center h-100 w-100 justify-evenly text-black">
       <input
         type="text"
         placeholder="Mot"

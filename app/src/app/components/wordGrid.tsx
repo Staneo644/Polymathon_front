@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { word } from '../communication/entity';
+import { word, word_id } from '../communication/entity';
 import gridFunction, { grid } from './grid';
 
-export default function WordGrid(word: word[]) {
+export default function WordGrid(word: word_id[]) {
   const [grid, setGrid] = useState<grid[]>([]);
 
   const convertToGrid = (): grid[] => {
     let ret: grid[] = [];
     ret.push({ index: 'Mot', value: [] });
     word.forEach((element) => {
-      ret[ret.length - 1].value.push(element.name + ' (' + element.gender + ')');
+      ret[ret.length - 1].value.push(element.name + ' (' + element.gender + ')' + ' (' + element.positive_note + '👍/' + element.negative_note + '👎)');
     });
     ret.push({ index: 'Définition', value: [] });
     word.forEach((element) => {
@@ -27,7 +27,6 @@ export default function WordGrid(word: word[]) {
   };
   useEffect(() => {
     setGrid(convertToGrid());
-    console.log(word);
   }, [word]);
 
   return gridFunction(grid);
